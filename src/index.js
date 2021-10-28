@@ -1,18 +1,15 @@
-import './style.css'
-import printMe from './print.js'
+import React from 'react'
+import ReactDOM from 'react-dom'
+import Home from './pages/home'
 
 console.log('当前环境：', process.env.NODE_ENV)
 
-function component() {
-  var element = document.createElement('div');
-  var btn = document.createElement('button')
+const App = () => (
+  <div>
+    <Home />
+  </div>
+)
 
-  element.innerHTML = '<p class="title">Hello Webpack</p>'
-  btn.innerHTML = '点击事件'
-  btn.onclick = printMe
-  element.appendChild(btn)
-
-  return element
-}
-
-document.body.appendChild(component())
+const appEl = document.createElement('div')
+document.body.appendChild(appEl)
+ReactDOM.render(<App />, appEl)
