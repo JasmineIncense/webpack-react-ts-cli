@@ -8,11 +8,14 @@ const APP_PATH = path.resolve(__dirname, '../src')
 
 module.exports = {
   entry: {
-    main: path.resolve(APP_PATH, 'index.js')
+    main: path.resolve(APP_PATH, 'index.tsx')
   },
   output: {
     filename: '[name].bundle.js',
     path: path.resolve(ROOT_PATH, 'dist')
+  },
+  resolve: {
+    extensions: ['.tsx','.ts', '.js', '.json'],
   },
   module: {
     rules: [
@@ -20,9 +23,14 @@ module.exports = {
         test: /\.css$/,
         use: ['style-loader', 'css-loader']
       },
+      { 
+        test: /\.tsx?$/, 
+        exclude: /node_modules/,
+        loader: "ts-loader" 
+      },
       {
-        test: /(\.js|\.jsx)$/,
-        include: APP_PATH,
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
         use: {
           loader: 'babel-loader'
         }
@@ -35,8 +43,5 @@ module.exports = {
     }),
     new CleanWebpackPlugin(),
     new webpack.HotModuleReplacementPlugin()
-  ],
-  resolve: {
-    extensions: ['.js', '.jsx']
-  }
+  ]
 }
